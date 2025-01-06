@@ -1,16 +1,14 @@
 ﻿public class Program
-{
+{   
     public static void Main(string[] args)
     {
-        var commands = new List<ICommand>
-        {
-            new LaughCommand(),
-            new ExitCommand(),
-            new DanceCommand(),
-            new SingCommand(),
-            new WhistleCommand(),
-            new JumpCommand()
-        };
+        ICommand lol = new LaughCommand();
+        ICommand exit = new ExitCommand();
+        ICommand dance = new DanceCommand();
+        ICommand sing = new SingCommand();
+        ICommand whistle = new WhistleCommand();
+        ICommand jump = new JumpCommand();
+        List<ICommand> commands = new List<ICommand> { lol, exit, dance, sing, whistle, jump };
 
         do
         {
@@ -37,75 +35,17 @@
     }
 }
 
-public interface ICommand
-{
-    bool Handles(string userInput);
-    CommandResult Execute();
-}
 
-public class ExitCommand : ICommand
-{
-    public bool Handles(string userInput) => userInput == "exit";
-    public CommandResult Execute()
-    {
-        Console.WriteLine("Exiting...");
-        return new CommandResult { RequestExit = true, IsHandled = true };
-    }
-}
 
-public class DanceCommand : ICommand
-{
-    public bool Handles(string userInput) => userInput == "dance";
-    public CommandResult Execute()
-    {
-        Console.WriteLine("Get down and boogie!");
-        return new CommandResult { RequestExit = false, IsHandled = true };
-    }
-}
 
-public class SingCommand : ICommand
-{
-    public bool Handles(string userInput) => userInput == "sing";
-    public CommandResult Execute()
-    {
-        Console.WriteLine("If I was twice the man I could be, I'd be half of what you need!");
-        return new CommandResult { RequestExit = false, IsHandled = true };
-    }
-}
 
-public class WhistleCommand : ICommand
-{
-    public bool Handles(string userInput) => userInput == "whistle";
-    public CommandResult Execute()
-    {
-        Console.WriteLine("Whistle while you work!");
-        return new CommandResult { RequestExit = false, IsHandled = true };
-    }
-}
 
-public class JumpCommand : ICommand
-{
-    public bool Handles(string userInput) => userInput == "jump";
-    public CommandResult Execute()
-    {
-        Console.WriteLine("How high??!!");
-        return new CommandResult { RequestExit = false, IsHandled = true };
-    }
-}
 
-public class CommandResult
-{
-    public bool RequestExit { get; set; }
 
-    public bool IsHandled { get; set; }
-}
 
-public class LaughCommand : ICommand
-{
-    public bool Handles(string userInput) => userInput == "lol";
-    public CommandResult Execute()
-    {
-        Console.WriteLine("You laugh out loud!");
-        return new CommandResult { RequestExit = false, IsHandled = true };
-    }
-}
+
+
+
+
+
+
