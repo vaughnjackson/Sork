@@ -1,4 +1,5 @@
 ﻿using Sork.Commands;
+using Sork.World;
 
 namespace Sork;
 public class Program
@@ -6,20 +7,24 @@ public class Program
     public static void Main(string[] args)
     {
         UserInputOutput io = new UserInputOutput();
+
+        var gameState = GameState.Create(io);
+
         ICommand lol = new LaughCommand(io);
         ICommand exit = new ExitCommand(io);
         ICommand dance = new DanceCommand(io);
         ICommand sing = new SingCommand(io);
         ICommand whistle = new WhistleCommand(io);
         ICommand jump = new JumpCommand(io);
-        List<ICommand> commands = new List<ICommand> { lol, exit, dance, sing, whistle, jump };
+        ICommand move = new MoveCommand(io);
+        List<ICommand> commands = new List<ICommand> { lol, exit, dance, sing, whistle, jump, move };
 
         do
         {
             io.WritePrompt(" > ");
             string input = io.ReadInput();
-            input = input.ToLower();
-            input = input.Trim();
+            
+            
 
             var result = new CommandResult { RequestExit = false, IsHandled = false };
             var handled = false;
@@ -28,7 +33,7 @@ public class Program
                 if (command.Handles(input))
                 {
                     handled = true;
-                    result = command.Execute();
+                    result = command.Execute(input, gameState);
                     if (result.RequestExit) { break; }
                 }
             }
@@ -38,39 +43,3 @@ public class Program
         } while (true);
     }
 }
-
-
-public class UserInputOutput
-{
-    public void WritePrompt(string prompt)
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(prompt);
-        Console.ResetColor();
-    }
-    public void WriteMessage(string message)
-    {
-        Console.Write(message);
-    }
-    public void WriteNoun(string noun)
-    {
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.Write(noun);
-        Console.ResetColor();
-    }
-    public void WriteMessageLine(string message)
-    {
-        Console.WriteLine(message);
-    }
-
-    public string ReadInput()
-    {
-        return Console.ReadLine();
-    }
-    public string ReadKey()
-    {
-        return Console.ReadKey().KeyChar.ToString();
-    }
-
-}
-

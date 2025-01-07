@@ -1,5 +1,5 @@
 namespace Sork.Commands;
-
+using Sork.World;
 public class JumpCommand : BaseCommand
 {
     private readonly UserInputOutput io;
@@ -12,7 +12,7 @@ public class JumpCommand : BaseCommand
         return GetCommandFromInput(userInput) == "jump";
     }
 
-    public override CommandResult Execute()
+    public override CommandResult Execute(string userInput, GameState gameState)
     {
         io.WriteMessageLine("How high??!!");
         return new CommandResult { RequestExit = false, IsHandled = true };
