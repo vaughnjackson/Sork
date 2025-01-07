@@ -1,3 +1,5 @@
+namespace Sork;
+
 public class JumpCommand : ICommand
 {
     public bool Handles(string userInput)
